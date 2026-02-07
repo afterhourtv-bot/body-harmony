@@ -4,6 +4,62 @@ import { skinTones } from '../data/skinTones';
 import type { BodyZone, SkinTone } from '../types';
 import { Move, RotateCcw, ZoomIn, ZoomOut, Check, Info } from 'lucide-react';
 
+function MiniBodyPreview({ selectedZone }: { selectedZone: BodyZone | null }) {
+  const isBackZone = selectedZone?.id.startsWith('back-');
+
+  return (
+    <svg viewBox="0 0 400 520" className="mini-body-preview">
+      {/* Body outline */}
+      <g fill="none" stroke="var(--text-secondary)" strokeWidth="1" opacity="0.25">
+        <ellipse cx="200" cy="28" rx="20" ry="24" />
+        <path d="M 192,55 L 190,72" />
+        <path d="M 208,55 L 210,72" />
+        <path d="M 190,72 Q 168,68 145,76 Q 126,84 114,94 Q 108,100 106,108" />
+        <path d="M 210,72 Q 232,68 255,76 Q 274,84 286,94 Q 292,100 294,108" />
+        <path d="M 150,82 Q 145,100 143,122 Q 141,148 141,168 Q 143,188 148,202 Q 155,213 165,218" />
+        <path d="M 250,82 Q 255,100 257,122 Q 259,148 259,168 Q 257,188 252,202 Q 245,213 235,218" />
+        <path d="M 165,218 Q 182,226 200,228 Q 218,226 235,218" />
+        <path d="M 106,108 Q 100,125 96,145 Q 92,165 90,182 Q 86,202 82,225 Q 78,248 74,268 Q 70,285 66,300 Q 63,310 62,316" />
+        <path d="M 140,90 Q 136,110 132,132 Q 128,152 126,172 Q 122,192 118,212 Q 112,235 108,252 Q 102,270 96,288 Q 92,302 88,314" />
+        <path d="M 62,316 Q 58,324 60,328 Q 66,330 74,327 Q 82,322 87,316 L 88,314" />
+        <path d="M 294,108 Q 300,125 304,145 Q 308,165 310,182 Q 314,202 318,225 Q 322,248 326,268 Q 330,285 334,300 Q 337,310 338,316" />
+        <path d="M 260,90 Q 264,110 268,132 Q 272,152 274,172 Q 278,192 282,212 Q 288,235 292,252 Q 298,270 304,288 Q 308,302 312,314" />
+        <path d="M 338,316 Q 342,324 340,328 Q 334,330 326,327 Q 318,322 313,316 L 312,314" />
+        <path d="M 155,218 Q 150,250 148,280 Q 146,308 146,330 Q 144,358 142,385 Q 140,412 139,435 Q 138,452 137,465 Q 136,472 135,478" />
+        <path d="M 192,228 Q 190,255 188,280 Q 186,308 185,330 Q 183,358 181,385 Q 179,412 178,435 Q 177,452 176,465 Q 175,472 174,478" />
+        <path d="M 135,478 Q 128,483 127,487 Q 132,491 146,493 Q 160,493 172,491 Q 176,487 175,482 L 174,478" />
+        <path d="M 245,218 Q 250,250 252,280 Q 254,308 254,330 Q 256,358 258,385 Q 260,412 261,435 Q 262,452 263,465 Q 264,472 265,478" />
+        <path d="M 208,228 Q 210,255 212,280 Q 214,308 215,330 Q 217,358 219,385 Q 221,412 222,435 Q 223,452 224,465 Q 225,472 226,478" />
+        <path d="M 265,478 Q 272,483 273,487 Q 268,491 254,493 Q 240,493 228,491 Q 224,487 225,482 L 226,478" />
+      </g>
+
+      {/* Highlighted zone */}
+      {selectedZone && (
+        <g transform={isBackZone ? 'translate(-100, 0)' : undefined}>
+          <path
+            d={selectedZone.svgPath}
+            fill="var(--accent-primary)"
+            fillOpacity="0.35"
+            stroke="var(--accent-primary)"
+            strokeWidth="2"
+          />
+          <text
+            x={selectedZone.labelPosition.x}
+            y={selectedZone.labelPosition.y - 8}
+            textAnchor="middle"
+            fill="var(--accent-primary)"
+            fontSize="8"
+            fontWeight="600"
+            fontFamily="Inter, sans-serif"
+          >
+            {selectedZone.nameEs}
+          </text>
+        </g>
+      )}
+    </svg>
+  );
+}
+
 export default function SimulatorPage() {
   const [selectedZone, setSelectedZone] = useState<BodyZone | null>(null);
   const [selectedTone, setSelectedTone] = useState<SkinTone>(skinTones[2]);
@@ -62,6 +118,11 @@ export default function SimulatorPage() {
                 <option key={zone.id} value={zone.id}>{zone.nameEs}</option>
               ))}
             </select>
+
+            {/* Mini body preview */}
+            <div className="mini-body-wrapper">
+              <MiniBodyPreview selectedZone={selectedZone} />
+            </div>
           </div>
 
           <div className="control-section">
