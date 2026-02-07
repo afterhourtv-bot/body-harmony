@@ -97,3 +97,371 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--border-light);
 }
+
+/* ============================================
+   ANIMATIONS - REALISTIC BODY
+   ============================================ */
+
+/* Fade up entrance for content */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade-up {
+  animation: fadeUp 0.7s ease-out both;
+}
+
+/* Body structure lines - draw in */
+.body-line {
+  fill: none;
+  stroke: url(#skinGrad);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: drawLine 2.5s ease-out forwards;
+}
+
+.body-line-detail {
+  fill: none;
+  stroke: #c792ea;
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: fadeInDetail 0.8s ease-out forwards;
+  animation-delay: 2s;
+}
+
+.abs-line {
+  stroke-dasharray: 3 5;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeInDetail {
+  to {
+    opacity: 0.3;
+  }
+}
+
+/* Breathing animation - subtle chest expansion */
+.breathing-zone {
+  fill: rgba(199, 146, 234, 0.03);
+  stroke: none;
+  transform-origin: 100px 108px;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1, 1);
+    opacity: 0.03;
+  }
+  40% {
+    transform: scale(1.06, 1.1);
+    opacity: 0.08;
+  }
+  60% {
+    transform: scale(1.06, 1.1);
+    opacity: 0.06;
+  }
+}
+
+/* Pulse points - heartbeat at arterial locations */
+.pulse-point {
+  fill: #c792ea;
+  opacity: 0;
+  animation: arterialPulse 3s ease-in-out infinite;
+}
+
+@keyframes arterialPulse {
+  0%, 100% {
+    opacity: 0;
+    r: 1;
+  }
+  15% {
+    opacity: 0.7;
+    r: 2.5;
+  }
+  30% {
+    opacity: 0.3;
+    r: 1.8;
+  }
+  45% {
+    opacity: 0.5;
+    r: 2.2;
+  }
+  60% {
+    opacity: 0;
+    r: 1;
+  }
+}
+
+/* Flow paths - ink flowing through body contours */
+.flow-path {
+  fill: none;
+  stroke: #c792ea;
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: inkFlow 3s ease-in-out infinite;
+}
+
+.flow-1 { animation-delay: 2.5s; }
+.flow-2 { animation-delay: 2.8s; }
+.flow-3 { animation-delay: 3.2s; }
+.flow-4 { animation-delay: 3.5s; }
+.flow-5 { animation-delay: 3.8s; }
+.flow-6 { animation-delay: 4.1s; }
+
+@keyframes inkFlow {
+  0% {
+    stroke-dashoffset: 200;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.15;
+  }
+  85% {
+    opacity: 0.35;
+  }
+  100% {
+    stroke-dashoffset: -200;
+    opacity: 0;
+  }
+}
+
+/* Zone hints - subtle glow on tattoo placement areas */
+.zone-hint {
+  fill: rgba(199, 146, 234, 0.0);
+  stroke: rgba(199, 146, 234, 0.0);
+  stroke-width: 0.5;
+  animation: zoneReveal 5s ease-in-out infinite;
+}
+
+@keyframes zoneReveal {
+  0%, 100% {
+    fill: rgba(199, 146, 234, 0.0);
+    stroke: rgba(199, 146, 234, 0.0);
+  }
+  30% {
+    fill: rgba(199, 146, 234, 0.06);
+    stroke: rgba(199, 146, 234, 0.15);
+  }
+  50% {
+    fill: rgba(199, 146, 234, 0.04);
+    stroke: rgba(199, 146, 234, 0.1);
+  }
+  70% {
+    fill: rgba(199, 146, 234, 0.0);
+    stroke: rgba(199, 146, 234, 0.0);
+  }
+}
+
+/* Hero body SVG sizing */
+.hero-body-svg {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+}
+
+/* ============================================
+   BODY MAP ZONE ANIMATIONS
+   ============================================ */
+
+.body-zone {
+  transition: all 0.35s ease;
+}
+
+.body-zone:hover {
+  filter: brightness(1.2) drop-shadow(0 0 4px rgba(199, 146, 234, 0.3));
+}
+
+/* Selected zone subtle pulse */
+@keyframes selectedZonePulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(199, 146, 234, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(199, 146, 234, 0.5));
+  }
+}
+
+/* Zone details panel slide in */
+.zone-details {
+  animation: slideInRight 0.35s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Zone cards stagger */
+.zone-card {
+  animation: fadeUp 0.4s ease-out both;
+}
+
+.zone-cards .zone-card:nth-child(1) { animation-delay: 0.02s; }
+.zone-cards .zone-card:nth-child(2) { animation-delay: 0.04s; }
+.zone-cards .zone-card:nth-child(3) { animation-delay: 0.06s; }
+.zone-cards .zone-card:nth-child(4) { animation-delay: 0.08s; }
+.zone-cards .zone-card:nth-child(5) { animation-delay: 0.10s; }
+.zone-cards .zone-card:nth-child(6) { animation-delay: 0.12s; }
+.zone-cards .zone-card:nth-child(7) { animation-delay: 0.14s; }
+.zone-cards .zone-card:nth-child(8) { animation-delay: 0.16s; }
+.zone-cards .zone-card:nth-child(9) { animation-delay: 0.18s; }
+.zone-cards .zone-card:nth-child(10) { animation-delay: 0.20s; }
+.zone-cards .zone-card:nth-child(11) { animation-delay: 0.22s; }
+.zone-cards .zone-card:nth-child(12) { animation-delay: 0.24s; }
+.zone-cards .zone-card:nth-child(13) { animation-delay: 0.26s; }
+.zone-cards .zone-card:nth-child(14) { animation-delay: 0.28s; }
+.zone-cards .zone-card:nth-child(15) { animation-delay: 0.30s; }
+
+/* ============================================
+   ANATOMY DISTORTION SMOOTH MORPHING
+   ============================================ */
+
+.distortion-visual svg g {
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.distortion-visual svg circle,
+.distortion-visual svg line {
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Muscle cards expand */
+.muscle-details {
+  animation: expandIn 0.3s ease-out;
+}
+
+@keyframes expandIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+/* ============================================
+   SKIN TONE SWATCHES
+   ============================================ */
+
+.tone-swatch {
+  transition: all 0.25s ease;
+}
+
+.tone-detail {
+  animation: fadeUp 0.4s ease-out;
+}
+
+.ink-preview-item .ink-on-skin {
+  transition: transform 0.3s ease;
+}
+
+.ink-preview-item:hover .ink-on-skin {
+  transform: scale(1.08);
+}
+
+/* ============================================
+   PRINCIPLES ACCORDION
+   ============================================ */
+
+.principle-content {
+  animation: accordionOpen 0.35s ease-out;
+  overflow: hidden;
+}
+
+@keyframes accordionOpen {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    max-height: 400px;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   PAGE HEADER ANIMATIONS
+   ============================================ */
+
+.page-header h1 {
+  animation: fadeUp 0.5s ease-out;
+}
+
+.page-header p {
+  animation: fadeUp 0.5s ease-out 0.1s both;
+}
+
+/* ============================================
+   CLIENT CARDS
+   ============================================ */
+
+.client-card-body {
+  animation: expandIn 0.3s ease-out;
+}
+
+/* ============================================
+   FEATURE CARD ICON FLOAT
+   ============================================ */
+
+.feature-card:hover .feature-icon {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+.feature-icon {
+  transition: transform 0.3s ease;
+}
+
+/* ============================================
+   SIMULATOR CANVAS
+   ============================================ */
+
+.sim-svg rect,
+.sim-svg circle,
+.sim-svg ellipse,
+.sim-svg path,
+.sim-svg line {
+  transition: all 0.4s ease;
+}
+
+/* ============================================
+   PREFERS REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
